@@ -31,6 +31,7 @@ public class Trilha {
         this.anotacoes = anotacoes;
         this.nome = criarNome(empresa, ocupacao);
         this.apelido = criarApelido(empresa, ocupacao);
+        empresa.addTrilha(this);
     }
 
     public static String criarNome(Empresa empresa, String ocupacao) {
@@ -51,6 +52,19 @@ public class Trilha {
             }
         }
         return ocupacao + " " + numSeq;
+    }
+
+    public void addModulo(Modulo modulo) {
+        this.modulos.add(modulo);
+    }
+
+    public Modulo findModulo(String nomeModulo) {
+        for (Modulo m : modulos) {
+            if (nomeModulo.equals(m.getNome())) {
+                return m;
+            }
+        }
+        return null;
     }
 
     public Empresa getEmpresa() {
@@ -79,5 +93,19 @@ public class Trilha {
 
     public String getAnotacoes() {
         return anotacoes;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Trilha{");
+        sb.append("empresa=").append(empresa);
+        sb.append(", ocupacao='").append(ocupacao).append('\'');
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", apelido='").append(apelido).append('\'');
+        sb.append(", modulos=").append(modulos);
+        sb.append(", nivelSatisfacao=").append(nivelSatisfacao);
+        sb.append(", anotacoes='").append(anotacoes).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

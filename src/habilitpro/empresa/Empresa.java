@@ -50,8 +50,21 @@ public class Empresa {
     }
 
     public static boolean regexCnpj(String cnpj) {
-        String rePattern = "\\d{2}.\\d{3}.\\d{3}/\\d{4}-\\d{2}";
+        String rePattern = "\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}";
         return cnpj.matches(rePattern);
+    }
+
+    public void addTrilha(Trilha trilha) {
+        this.trilhas.add(trilha);
+    }
+
+    public Trilha findTrilha(String nomeTrilha) {
+        for (Trilha t : trilhas) {
+            if (nomeTrilha.equals(t.getNome())) {
+                return t;
+            }
+        }
+        return null;
     }
 
     public String getNome() {

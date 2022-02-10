@@ -43,9 +43,70 @@ public class Trabalhador {
         return cpf.matches(rePattern);
     }
 
+    public void addTrilha(Trilha trilha) {
+        this.trilhas.add(trilha);
+    }
+
+    public Trilha findTrilha(String nomeTrilha) {
+        for (Trilha t : trilhas) {
+            if (nomeTrilha.equals(t.getNome())) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     public void alterarFuncao(String funcao) {
         this.setFuncao(funcao);
         this.setDataUltimaAlter(LocalDate.now());
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public LocalDate getDataUltimaAlter() {
+        return dataUltimaAlter;
+    }
+
+    public ArrayList<Trilha> getTrilhas() {
+        return trilhas;
+    }
+
+    public void setTrilhas(ArrayList<Trilha> trilhas) {
+        this.trilhas = trilhas;
     }
 
     public void setFuncao(String funcao) {
