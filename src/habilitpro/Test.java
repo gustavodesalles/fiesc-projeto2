@@ -34,12 +34,15 @@ public class Test {
         System.out.println(empresa.getTrilhas());
         System.out.println(empresa.findTrilha("Japão, 1945-51 Outside Inc. 1 2022"));
 
-        Modulo modulo = new Modulo(trilha1, "Módulo 1", "hgfdg", "jhgf", LocalDate.of(2022, 2, 28));
+        Modulo modulo = new Modulo(trilha1, "Módulo 1", "hgfdg", "jhgf");
         System.out.println(trilha1.getModulos());
         System.out.println(trilha1.findModulo("Módulo 1"));
         System.out.println(trilha1.findModulo("Módulo 23"));
         modulo.setPrazoLimite(10);
         System.out.println(empresa.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").findModulo("Módulo 1").getPrazoLimite());
+        modulo.iniciarModulo();
+        System.out.println(modulo.getDataInicio());
+        System.out.println(modulo.getStatus());
 
         Trabalhador trabalhador = new Trabalhador("Bob", "210.281.890-01", empresa, "Z", "destroy the meteor");
         System.out.println(trabalhador.getCpf());
@@ -51,9 +54,14 @@ public class Test {
         trabalhador.addTrilha(trilha4);
         System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
         trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").findModulo("Módulo 1").setHabilidades("Habilidade");
-        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
+
         System.out.println(modulo.getHabilidades());
         System.out.println(trabalhador);
+
+        modulo.encerrarModulo();
+        System.out.println(modulo.getDataFim());
+        System.out.println(modulo.getStatus());
+        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
 
 //        Usuario usuario = new Usuario("Alice", "01073351076", "alice@example.com", "yabbadabba2"); exceção devido ao formato do CPF
 //        Usuario usuario = new Usuario("Alice", "010.733.510-76", "alice@examplecom", "yabbadabba2"); formato do email

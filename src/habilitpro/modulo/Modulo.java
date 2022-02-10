@@ -3,17 +3,19 @@ package habilitpro.modulo;
 import habilitpro.Trilha;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 public class Modulo {
     private Trilha trilha;
     private String nome;
     private String habilidades;
     private String tarefa;
-    private LocalDate dataFim;
+    private OffsetDateTime dataInicio;
+    private OffsetDateTime dataFim;
     private int prazoLimite;
     private EnumStatus status;
 
-    public Modulo(Trilha trilha, String nome, String habilidades, String tarefa, LocalDate dataFim) {
+    public Modulo(Trilha trilha, String nome, String habilidades, String tarefa) {
         this.trilha = trilha;
 
         if (!nome.isBlank()) {
@@ -22,10 +24,31 @@ public class Modulo {
 
         this.habilidades = habilidades;
         this.tarefa = tarefa;
-        this.dataFim = dataFim;
+        this.dataInicio = null;
+        this.dataFim = null;
         this.prazoLimite = 14;
-        this.status = EnumStatus.ANDAMENTO;
+        this.status = EnumStatus.NAO_INIC;
         trilha.addModulo(this);
+    }
+
+    public void iniciarModulo() {
+        if (getStatus().equals(EnumStatus.NAO_INIC)) {
+            setStatus(EnumStatus.ANDAMENTO);
+            setDataInicio(OffsetDateTime.now());
+        }
+    }
+
+    public void encerrarModulo() {
+        if (getStatus().equals(EnumStatus.ANDAMENTO)) {
+            setStatus(EnumStatus.FASE);
+            setDataFim(OffsetDateTime.now());
+        }
+    }
+
+    public void finalizarAvaliacao() {
+        if (OffsetDateTime.now().isAfter(getDataInicio().plusDays(prazoLimite))) {
+            setStatus(EnumStatus.AV_FINALIZADA);
+        }
     }
 
     public Trilha getTrilha() {
@@ -44,7 +67,7 @@ public class Modulo {
         return tarefa;
     }
 
-    public LocalDate getDataFim() {
+    public OffsetDateTime getDataFim() {
         return dataFim;
     }
 
@@ -76,16 +99,28 @@ public class Modulo {
         this.status = status;
     }
 
+    public OffsetDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(OffsetDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public void setDataFim(OffsetDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Modulo{");
-        sb.append("nome='").append(nome).append('\'');
-        sb.append(", habilidades='").append(habilidades).append('\'');
-        sb.append(", tarefa='").append(tarefa).append('\'');
-        sb.append(", dataFim=").append(dataFim);
-        sb.append(", prazoLimite=").append(prazoLimite);
-        sb.append(", status=").append(status);
-        sb.append('}');
-        return sb.toString();
+        return "Modulo{" +
+                "nome='" + nome + '\'' +
+                ", habilidades='" + habilidades + '\'' +
+                ", tarefa='" + tarefa + '\'' +
+                ", dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                ", prazoLimite=" + prazoLimite +
+                ", status=" + status +
+                '}';
     }
 }
