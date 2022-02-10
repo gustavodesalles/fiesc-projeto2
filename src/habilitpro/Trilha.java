@@ -41,6 +41,7 @@ public class Trilha {
                 numSeq++;
             }
         }
+        if (!empresa.getNomeFilial().isBlank()) return ocupacao + " " + empresa.getNome() + " " + empresa.getNomeFilial() + " " + numSeq + " " + LocalDate.now().getYear();
         return ocupacao + " " + empresa.getNome() + " " + numSeq + " " + LocalDate.now().getYear();
     }
 

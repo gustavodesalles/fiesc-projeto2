@@ -44,7 +44,7 @@ public class Trabalhador {
     }
 
     public void addTrilha(Trilha trilha) {
-        this.trilhas.add(trilha);
+        if (trilha.getEmpresa().equals(empresa)) this.trilhas.add(trilha);
     }
 
     public Trilha findTrilha(String nomeTrilha) {
@@ -115,5 +115,18 @@ public class Trabalhador {
 
     public void setDataUltimaAlter(LocalDate dataUltimaAlter) {
         this.dataUltimaAlter = dataUltimaAlter;
+    }
+
+    @Override
+    public String toString() {
+        return "Trabalhador{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", empresa=" + empresa +
+                ", setor='" + setor + '\'' +
+                ", funcao='" + funcao + '\'' +
+                ", dataUltimaAlter=" + dataUltimaAlter +
+                ", trilhas=" + trilhas +
+                '}';
     }
 }
