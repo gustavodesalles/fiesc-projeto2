@@ -1,9 +1,12 @@
 package habilitpro;
 
 import habilitpro.empresa.Empresa;
+import habilitpro.modulo.AvaliacaoModulo;
+import habilitpro.modulo.Modulo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class Trabalhador {
     private String nome;
@@ -13,6 +16,7 @@ public class Trabalhador {
     private String funcao;
     private LocalDate dataUltimaAlter;
     private ArrayList<Trilha> trilhas;
+    private LinkedHashMap<Modulo, AvaliacaoModulo> modulosComAv;
 
     public Trabalhador(String nome, String cpf, Empresa empresa, String setor, String funcao) {
         if (!nome.isBlank()) {
@@ -36,6 +40,7 @@ public class Trabalhador {
         this.dataUltimaAlter = LocalDate.now();
 
         this.trilhas = new ArrayList<>();
+        this.modulosComAv = new LinkedHashMap<>();
     }
 
     public static boolean regexCpf(String cpf) {
@@ -44,7 +49,12 @@ public class Trabalhador {
     }
 
     public void addTrilha(Trilha trilha) {
-        if (trilha.getEmpresa().equals(empresa)) this.trilhas.add(trilha);
+        if (trilha.getEmpresa().equals(empresa)) {
+            this.trilhas.add(trilha);
+            for (Modulo m : trilha.getModulos()) {
+                addModulo(m);
+            }
+        }
     }
 
     public void removeTrilha(Trilha trilha) {
@@ -58,6 +68,18 @@ public class Trabalhador {
             }
         }
         return null;
+    }
+
+    public void addModulo(Modulo modulo) {
+        AvaliacaoModulo am = new AvaliacaoModulo();
+        modulosComAv.put(modulo, am);
+    }
+
+    public void avaliarModulo(Modulo modulo, int notaAvaliacao, String anotacoes) {
+        if ((notaAvaliacao >= 1 && notaAvaliacao <= 5) && modulo.getTrilha().getEmpresa().equals(empresa)) {
+            modulosComAv.get(modulo).setNotaAvaliacao(notaAvaliacao);
+            modulosComAv.get(modulo).setAnotacoes(anotacoes);
+        }
     }
 
     public void alterarFuncao(String funcao) {
@@ -109,6 +131,14 @@ public class Trabalhador {
         return trilhas;
     }
 
+    public LinkedHashMap<Modulo, AvaliacaoModulo> getModulosComAv() {
+        return modulosComAv;
+    }
+
+    public void setModulosComAv(LinkedHashMap<Modulo, AvaliacaoModulo> modulosComAv) {
+        this.modulosComAv = modulosComAv;
+    }
+
     public void setTrilhas(ArrayList<Trilha> trilhas) {
         this.trilhas = trilhas;
     }
@@ -131,6 +161,7 @@ public class Trabalhador {
                 ", funcao='" + funcao + '\'' +
                 ", dataUltimaAlter=" + dataUltimaAlter +
                 ", trilhas=" + trilhas +
+                ", modulosComAv=" + modulosComAv +
                 '}';
     }
 }

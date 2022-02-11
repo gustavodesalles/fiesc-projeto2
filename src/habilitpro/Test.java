@@ -7,8 +7,6 @@ import habilitpro.modulo.Modulo;
 import habilitpro.usuario.EnumPerfil;
 import habilitpro.usuario.Usuario;
 
-import java.time.LocalDate;
-
 public class Test {
     public static void main(String[] args) {
         Empresa empresa = new Empresa("Outside Inc.", "88.024.482/0001-60", EnumTipoEmpresa.MATRIZ, EnumSegmento.TIC, "Belém", "PA", "Vale do Itajaí");
@@ -35,6 +33,8 @@ public class Test {
         System.out.println(empresa.findTrilha("Japão, 1945-51 Outside Inc. 1 2022"));
 
         Modulo modulo = new Modulo(trilha1, "Módulo 1", "hgfdg", "jhgf");
+        Modulo modulo1 = new Modulo(trilha4, "Teste 1", "gggg", "hfhfhfhf");
+        Modulo modulo2 = new Modulo(trilha4, "Teste 2", "jjjj", "kn");
         System.out.println(trilha1.getModulos());
         System.out.println(trilha1.findModulo("Módulo 1"));
         System.out.println(trilha1.findModulo("Módulo 23"));
@@ -52,16 +52,26 @@ public class Test {
 
         trabalhador.addTrilha(trilha1);
         trabalhador.addTrilha(trilha4);
-        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
+//        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
         trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").findModulo("Módulo 1").setHabilidades("Habilidade");
 
+        trabalhador.setEmpresa(empresa1);
+        trabalhador.addTrilha(trilha4);
+        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Stone GmbH Brasil 1 2022"));
+
         System.out.println(modulo.getHabilidades());
-        System.out.println(trabalhador);
+        System.out.println(trabalhador.getModulosComAv());
+        trabalhador.avaliarModulo(modulo2, 5, "right on");
+        trabalhador.avaliarModulo(modulo, 4, "oh");
+        trabalhador.avaliarModulo(modulo1, 4, "yes");
+        System.out.println(trabalhador.getModulosComAv());
 
         modulo.encerrarModulo();
         System.out.println(modulo.getDataFim());
         System.out.println(modulo.getStatus());
         System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
+        System.out.println(trabalhador.getTrilhas());
+        System.out.println(trabalhador.getModulosComAv());
 
 //        Usuario usuario = new Usuario("Alice", "01073351076", "alice@example.com", "yabbadabba2"); exceção devido ao formato do CPF
 //        Usuario usuario = new Usuario("Alice", "010.733.510-76", "alice@examplecom", "yabbadabba2"); formato do email

@@ -34,6 +34,21 @@ public class Trilha {
         empresa.addTrilha(this);
     }
 
+    public Trilha(Empresa empresa, String ocupacao) {
+        this.empresa = empresa;
+        if (!ocupacao.isBlank()) {
+            this.ocupacao = ocupacao;
+        } else throw new IllegalArgumentException();
+
+        this.modulos = new ArrayList<>();
+
+        this.nivelSatisfacao = 0;
+        this.anotacoes = null;
+        this.nome = criarNome(empresa, ocupacao);
+        this.apelido = criarApelido(empresa, ocupacao);
+        empresa.addTrilha(this);
+    }
+
     public static String criarNome(Empresa empresa, String ocupacao) {
         int numSeq = 1;
         for (Trilha t : empresa.getTrilhas()) {
@@ -94,6 +109,12 @@ public class Trilha {
 
     public int getNivelSatisfacao() {
         return nivelSatisfacao;
+    }
+
+    public void setNivelSatisfacao(int nivelSatisfacao) {
+        if (nivelSatisfacao <= 5 && nivelSatisfacao >= 1) {
+            this.nivelSatisfacao = nivelSatisfacao;
+        }
     }
 
     public String getAnotacoes() {
