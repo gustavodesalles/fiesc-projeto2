@@ -47,6 +47,10 @@ public class Trabalhador {
         if (trilha.getEmpresa().equals(empresa)) this.trilhas.add(trilha);
     }
 
+    public void removeTrilha(Trilha trilha) {
+        this.trilhas.remove(trilha);
+    }
+
     public Trilha findTrilha(String nomeTrilha) {
         for (Trilha t : trilhas) {
             if (nomeTrilha.equals(t.getNome())) {

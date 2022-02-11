@@ -73,5 +73,14 @@ public class Test {
         usuario.addPerfil(EnumPerfil.OPERA);
         usuario.addPerfil(EnumPerfil.ADMIN);
         System.out.println(usuario);
+
+        empresa.removeTrilha(trilha4);
+        empresa1.removeTrilha(trilha4);
+        System.out.println(empresa1.getTrilhas());
+
+        trilha1.removeModulo(modulo);
+        System.out.println(trabalhador.getTrilhas());
+        trabalhador.removeTrilha(trilha1);
+        System.out.println(trabalhador.getTrilhas());
     }
 }

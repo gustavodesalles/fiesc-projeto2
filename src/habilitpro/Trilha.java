@@ -59,6 +59,10 @@ public class Trilha {
         this.modulos.add(modulo);
     }
 
+    public void removeModulo(Modulo modulo) {
+        this.modulos.remove(modulo);
+    }
+
     public Modulo findModulo(String nomeModulo) {
         for (Modulo m : modulos) {
             if (nomeModulo.equals(m.getNome())) {
