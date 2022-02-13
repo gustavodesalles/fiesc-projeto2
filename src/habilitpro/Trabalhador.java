@@ -71,7 +71,7 @@ public class Trabalhador {
     }
 
     public void addModulo(Modulo modulo) {
-        AvaliacaoModulo am = new AvaliacaoModulo();
+        AvaliacaoModulo am = new AvaliacaoModulo(modulo, this);
         modulosComAv.put(modulo, am);
     }
 
@@ -156,7 +156,7 @@ public class Trabalhador {
         return "Trabalhador{" +
                 "nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", empresa=" + empresa +
+                ", empresa=" + empresa.getNome() +
                 ", setor='" + setor + '\'' +
                 ", funcao='" + funcao + '\'' +
                 ", dataUltimaAlter=" + dataUltimaAlter +

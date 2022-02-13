@@ -50,6 +50,8 @@ public class Test {
         trabalhador.alterarFuncao("save corneria");
         System.out.println(trabalhador.getFuncao());
 
+
+
         trabalhador.addTrilha(trilha1);
         trabalhador.addTrilha(trilha4);
 //        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());

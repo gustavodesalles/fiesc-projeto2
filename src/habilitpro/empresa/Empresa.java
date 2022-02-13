@@ -145,6 +145,16 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return nome;
+        return "Empresa{" +
+                "nome='" + nome + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", tipoEmpresa=" + tipoEmpresa +
+                ", nomeFilial='" + nomeFilial + '\'' +
+                ", segmento=" + segmento +
+                ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
+                ", regionalSenai='" + regionalSenai + '\'' +
+                ", trilhas=" + trilhas +
+                '}';
     }
 }

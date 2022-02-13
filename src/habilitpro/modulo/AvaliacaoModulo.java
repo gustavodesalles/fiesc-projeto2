@@ -1,12 +1,18 @@
 package habilitpro.modulo;
 
+import habilitpro.Trabalhador;
+
 public class AvaliacaoModulo {
     public int notaAvaliacao;
     public String anotacoes;
+    public Modulo modulo;
+    public Trabalhador trabalhador;
 
-    public AvaliacaoModulo() {
+    public AvaliacaoModulo(Modulo modulo, Trabalhador trabalhador) {
         this.notaAvaliacao = 0;
         this.anotacoes = null;
+        this.modulo = modulo;
+        this.trabalhador = trabalhador;
     }
 
     public int getNotaAvaliacao() {

@@ -124,7 +124,7 @@ public class Trilha {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Trilha{");
-        sb.append("empresa=").append(empresa);
+        sb.append("empresa=").append(empresa.getNome());
         sb.append(", ocupacao='").append(ocupacao).append('\'');
         sb.append(", nome='").append(nome).append('\'');
         sb.append(", apelido='").append(apelido).append('\'');
