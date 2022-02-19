@@ -5,6 +5,7 @@ import habilitpro.Trilha;
 import java.util.ArrayList;
 
 public class Empresa {
+    private int id;
     private String nome;
     private String cnpj;
     private EnumTipoEmpresa tipoEmpresa;
@@ -15,7 +16,11 @@ public class Empresa {
     private String regionalSenai;
     private ArrayList<Trilha> trilhas;
 
+    static int contadorEmpresa = 0;
+
     public Empresa(String nome, String cnpj, EnumTipoEmpresa tipoEmpresa, String nomeFilial, EnumSegmento segmento, String cidade, String estado, String regionalSenai) {
+        contadorEmpresa++;
+        this.id = contadorEmpresa;
         if (!nome.isBlank()) {
             this.nome = nome;
         } else throw new IllegalArgumentException();
@@ -36,6 +41,8 @@ public class Empresa {
     }
 
     public Empresa(String nome, String cnpj, EnumTipoEmpresa tipoEmpresa, EnumSegmento segmento, String cidade, String estado, String regionalSenai) {
+        contadorEmpresa++;
+        this.id = contadorEmpresa;
         this.nome = nome;
         if (regexCnpj(cnpj)) {
             this.cnpj = cnpj;
@@ -143,10 +150,19 @@ public class Empresa {
         this.trilhas = trilhas;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Empresa{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 ", tipoEmpresa=" + tipoEmpresa +
                 ", nomeFilial='" + nomeFilial + '\'' +

@@ -11,6 +11,8 @@ public class Test {
     public static void main(String[] args) {
         Empresa empresa = new Empresa("Outside Inc.", "88.024.482/0001-60", EnumTipoEmpresa.MATRIZ, EnumSegmento.TIC, "Belém", "PA", "Vale do Itajaí");
         Empresa empresa1 = new Empresa("Stone GmbH", "45.580.772/0001-88", EnumTipoEmpresa.FILIAL, "Brasil", EnumSegmento.ALIB, "São José", "SC", "Grande Florianópolis");
+        System.out.println(empresa);
+        System.out.println(empresa1);
 
         Trilha trilha = new Trilha(empresa, "Japão, 1945-51", 4, "teste trilha 1");
         System.out.println(trilha.getNome());
@@ -45,6 +47,7 @@ public class Test {
         System.out.println(modulo.getStatus());
 
         Trabalhador trabalhador = new Trabalhador("Bob", "210.281.890-01", empresa, "Z", "destroy the meteor");
+        System.out.println(trabalhador.getId());
         System.out.println(trabalhador.getCpf());
         System.out.println(trabalhador.getDataUltimaAlter());
         trabalhador.alterarFuncao("save corneria");

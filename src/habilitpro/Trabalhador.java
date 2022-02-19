@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Trabalhador {
+    private int id;
     private String nome;
     private String cpf;
     private Empresa empresa;
@@ -18,7 +19,12 @@ public class Trabalhador {
     private ArrayList<Trilha> trilhas;
     private LinkedHashMap<Modulo, AvaliacaoModulo> modulosComAv;
 
+    static int contadorTrabalhador = 0;
+
     public Trabalhador(String nome, String cpf, Empresa empresa, String setor, String funcao) {
+        contadorTrabalhador++;
+        this.id = contadorTrabalhador;
+
         if (!nome.isBlank()) {
             this.nome = nome;
         } else throw new IllegalArgumentException();
@@ -85,6 +91,14 @@ public class Trabalhador {
     public void alterarFuncao(String funcao) {
         this.setFuncao(funcao);
         this.setDataUltimaAlter(LocalDate.now());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -154,9 +168,10 @@ public class Trabalhador {
     @Override
     public String toString() {
         return "Trabalhador{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", empresa=" + empresa.getNome() +
+                ", empresa=" + empresa +
                 ", setor='" + setor + '\'' +
                 ", funcao='" + funcao + '\'' +
                 ", dataUltimaAlter=" + dataUltimaAlter +
