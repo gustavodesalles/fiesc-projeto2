@@ -2,7 +2,7 @@ package habilitpro.modulo;
 
 import habilitpro.Trilha;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.OffsetDateTime;
 
 public class Modulo {
@@ -12,6 +12,7 @@ public class Modulo {
     private String tarefa;
     private OffsetDateTime dataInicio;
     private OffsetDateTime dataFim;
+    private OffsetDateTime dataPrazo;
     private int prazoLimite;
     private EnumStatus status;
 
@@ -26,15 +27,17 @@ public class Modulo {
         this.tarefa = tarefa;
         this.dataInicio = null;
         this.dataFim = null;
-        this.prazoLimite = 14;
+        this.dataPrazo = null;
+        this.prazoLimite = 10;
         this.status = EnumStatus.NAO_INIC;
         trilha.addModulo(this);
     }
 
-    public void iniciarModulo() {
+    public void iniciarModulo(OffsetDateTime time) {
         if (getStatus().equals(EnumStatus.NAO_INIC)) {
             setStatus(EnumStatus.ANDAMENTO);
-            setDataInicio(OffsetDateTime.now());
+            setDataInicio(time);
+            setDataPrazo(calcularDataPrazo());
         }
     }
 
@@ -46,9 +49,20 @@ public class Modulo {
     }
 
     public void finalizarAvaliacao() {
-        if (OffsetDateTime.now().isAfter(getDataInicio().plusDays(prazoLimite))) {
+        if ((getStatus().equals(EnumStatus.ANDAMENTO) || getStatus().equals(EnumStatus.FASE)) && OffsetDateTime.now().isAfter(getDataPrazo())) {
             setStatus(EnumStatus.AV_FINALIZADA);
         }
+    }
+
+    public OffsetDateTime calcularDataPrazo() {
+        OffsetDateTime auxData = getDataInicio().withHour(23).withMinute(55).withSecond(0).withNano(0);
+        int i = prazoLimite;
+        if (auxData.getDayOfWeek() != DayOfWeek.SATURDAY && auxData.getDayOfWeek() != DayOfWeek.SUNDAY) i--;
+        for (int j = i; j > 0; j--) {
+            auxData = auxData.plusDays(1);
+            if (auxData.getDayOfWeek() == DayOfWeek.SATURDAY || auxData.getDayOfWeek() == DayOfWeek.SUNDAY) j++;
+        }
+        return auxData;
     }
 
     public Trilha getTrilha() {
@@ -73,6 +87,14 @@ public class Modulo {
 
     public int getPrazoLimite() {
         return prazoLimite;
+    }
+
+    public OffsetDateTime getDataPrazo() {
+        return dataPrazo;
+    }
+
+    public void setDataPrazo(OffsetDateTime dataPrazo) {
+        this.dataPrazo = dataPrazo;
     }
 
     public EnumStatus getStatus() {
@@ -119,6 +141,7 @@ public class Modulo {
                 ", tarefa='" + tarefa + '\'' +
                 ", dataInicio=" + dataInicio +
                 ", dataFim=" + dataFim +
+                ", dataPrazo=" + dataPrazo +
                 ", prazoLimite=" + prazoLimite +
                 ", status=" + status +
                 '}';

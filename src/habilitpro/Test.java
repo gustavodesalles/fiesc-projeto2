@@ -7,6 +7,9 @@ import habilitpro.modulo.Modulo;
 import habilitpro.usuario.EnumPerfil;
 import habilitpro.usuario.Usuario;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 public class Test {
     public static void main(String[] args) {
         Empresa empresa = new Empresa("Outside Inc.", "88.024.482/0001-60", EnumTipoEmpresa.MATRIZ, EnumSegmento.TIC, "Belém", "PA", "Vale do Itajaí");
@@ -42,7 +45,8 @@ public class Test {
         System.out.println(trilha1.findModulo("Módulo 23"));
         modulo.setPrazoLimite(10);
         System.out.println(empresa.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").findModulo("Módulo 1").getPrazoLimite());
-        modulo.iniciarModulo();
+        modulo.iniciarModulo(OffsetDateTime.of(2022,2,23,8,0,0,0, ZoneOffset.UTC));
+        System.out.println(modulo.getDataPrazo());
         System.out.println(modulo.getDataInicio());
         System.out.println(modulo.getStatus());
 
@@ -54,20 +58,20 @@ public class Test {
         System.out.println(trabalhador.getFuncao());
 
 
-
         trabalhador.addTrilha(trilha1);
-        trabalhador.addTrilha(trilha4);
-//        System.out.println(trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").getModulos());
+        trabalhador.addTrilha(trilha4); // esta trilha não é adicionada, por ser de outra empresa
+        System.out.println(trabalhador.getTrilhas());
         trabalhador.findTrilha("Japão, 1945-51 Outside Inc. 2 2022").findModulo("Módulo 1").setHabilidades("Habilidade");
 
-        trabalhador.setEmpresa(empresa1);
+        trabalhador.setEmpresa(empresa1); // trocando a empresa, adiciona-se a trilha 4
         trabalhador.addTrilha(trilha4);
+        System.out.println(trabalhador.getTrilhas());
         System.out.println(trabalhador.findTrilha("Japão, 1945-51 Stone GmbH Brasil 1 2022"));
 
         System.out.println(modulo.getHabilidades());
         System.out.println(trabalhador.getModulosComAv());
         trabalhador.avaliarModulo(modulo2, 5, "right on");
-        trabalhador.avaliarModulo(modulo, 4, "oh");
+        trabalhador.avaliarModulo(modulo, 4, "oh"); // como o trabalhador trocou de empresa, este módulo não será avaliado
         trabalhador.avaliarModulo(modulo1, 4, "yes");
         System.out.println(trabalhador.getModulosComAv());
 
